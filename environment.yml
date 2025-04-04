@@ -399,4 +399,3 @@ dependencies:
       - youtube-transcript-api==0.6.3
       - zipp==3.20.1
       - zstandard==0.23.0
-prefix: /home/digitalocean/.conda/envs/ui
