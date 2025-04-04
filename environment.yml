@@ -72,7 +72,7 @@ dependencies:
       - chardet==5.2.0
       - charset-normalizer==3.3.2
       - chroma-hnswlib==0.7.6
-      - chromadb==0.6.2
+      - chromadb>=0.4.0,<0.6.0
       - colbert-ai==0.2.21
       - colorclass==2.2.2
       - coloredlogs==15.0.1
