@@ -1,0 +1,13 @@
+/* Target the element and apply the desired positioning */
+div.fixed.m-10.z-50 {
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    top: 10% !important;
+    margin: 0 !important;
+}
+
+/* This rule removes the m-10 class styling which might be affecting margins */
+.m-10 {
+    margin: 0 !important;
+}
+
