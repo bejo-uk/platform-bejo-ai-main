@@ -1,86 +1,52 @@
 (function() {
-    // Configuration
-    const desiredPageTitle = "Applied Intelligence built by Bejo"; // *** YOUR FINAL TITLE ***
-    const originalLoginText = "Sign in to Open WebUI";
-    const newLoginText = "Sign in to Applied Intelligence built by Bejo"; // Adjusted login text
+    const desiredPageTitle = "Applied Intelligence built by Bejo";
+    const originalLoginText = "Sign in to Open WebUI"; // Or "Sign in to Applied Intelligence" if the constant change worked
+    const newLoginText = "Sign in to Applied Intelligence";
 
-    // Function to FORCE the desired page title
-    function forcePageTitle() {
-        // Always set the title if it's not already the desired one
+    function forceTitle() {
         if (document.title !== desiredPageTitle) {
             document.title = desiredPageTitle;
-            // console.log("Page title forced to:", desiredPageTitle); // Optional: for debugging
+            // console.log(`Title forced: ${Date.now()}`); // Uncomment for intense debugging
         }
     }
 
-    // Function to replace the login text (adjust selector if needed)
-    function replaceLoginText() {
-        // Use a broader selector or specific elements if the text isn't found
-        document.querySelectorAll('h1, h2, h3, p, div.text-center.text-xl').forEach(element => {
-           if (element.innerText && (element.innerText.trim() === originalLoginText || element.innerText.includes("Sign in to Open"))) {
-                // Check if already replaced to prevent infinite loops if observer triggers repeatedly
+    function replaceLoginTextIfNeeded() {
+         // Use a specific selector if possible, otherwise broad search
+         document.querySelectorAll('h1, h2, h3, p, div.text-center.text-xl').forEach(element => {
+            // Check for the text that needs replacing (might be the original or the one set by APP_NAME)
+           if (element.innerText && (element.innerText.includes("Sign in to Open WebUI") || element.innerText.includes("Sign in to Applied Intelligence"))) {
+                // Only replace if it's not already the final desired text
                 if (element.innerText.trim() !== newLoginText) {
                     element.innerText = newLoginText;
-                    console.log("Replaced login text in:", element.tagName);
+                    console.log("Updated login text.");
                 }
             }
         });
-         // Add other selectors/methods if needed
     }
 
-    // Use MutationObserver to constantly check and force the title
-    // Also re-checks login text in case the login component re-renders
-    function setupObservers() {
-        if (document.body && document.querySelector('title')) {
-            try {
-                const observer = new MutationObserver(function(mutations) {
-                    // Force title check on every relevant mutation
-                    forcePageTitle();
-                    // Also re-check login text
-                    replaceLoginText();
-                });
+    // Force title immediately and repeatedly
+    forceTitle();
+    setInterval(forceTitle, 100); // Check and force every 100ms
 
-                // Observe the body for subtree changes AND the title element directly
-                observer.observe(document.body, { childList: true, subtree: true });
-                observer.observe(document.querySelector('title'), { subtree:true, characterData: true, childList: true });
+    // Attempt login text replacement repeatedly on load
+    // (MutationObserver is generally better but can be complex; interval is simpler for testing)
+    replaceLoginTextIfNeeded(); // Initial attempt
+    setTimeout(replaceLoginTextIfNeeded, 500);
+    setTimeout(replaceLoginTextIfNeeded, 1500);
+    setTimeout(replaceLoginTextIfNeeded, 3000);
 
-                console.log("Observers set up for title forcing and login text.");
-
-            } catch (error) {
-                console.error("Error setting up observers:", error);
-                setTimeout(setupObservers, 500); // Retry setup if error
-            }
-        } else {
-            // If body or title not ready, retry shortly
-            setTimeout(setupObservers, 100);
-        }
+    // Also run on load events
+     if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+             forceTitle();
+             replaceLoginTextIfNeeded();
+         });
     }
+    window.addEventListener('load', () => {
+        forceTitle();
+        replaceLoginTextIfNeeded();
+    });
 
-    // Initial setup function
-    function initialize() {
-         // Run initial replacements/forcing as soon as possible
-        forcePageTitle();
-        replaceLoginText();
+    console.log("Aggressive title/text override script loaded.");
 
-        // Set up observers once DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', setupObservers);
-        } else {
-            // DOM already loaded
-            setupObservers();
-        }
-
-         // Also run on window load as a fallback
-        window.addEventListener('load', function() {
-            forcePageTitle();
-            replaceLoginText();
-        });
-
-        // Extra checks after intervals, primarily for title forcing
-        setTimeout(forcePageTitle, 500);
-        setTimeout(forcePageTitle, 1500);
-        setTimeout(forcePageTitle, 3000); // Keep forcing it
-    }
-
-    initialize();
 })();
