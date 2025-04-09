@@ -1,284 +1,165 @@
 <!doctype html>
 <html lang="en">
-        <head>
-                <meta charset="utf-8" />
+	<head>
+		<meta charset="utf-8" />
 
-                <!-- Modified Asset Paths -->
-                <link rel="icon" type="image/png" href="/static/favicon.png" />
-                <link rel="icon" type="image/png" href="/static/favicon-96x96.png" sizes="96x96" />
-                <!-- Assuming you don't have favicon.svg in static/static, comment out or remove if causing 404 -->
-                <!-- <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" /> -->
-                <link rel="shortcut icon" href="/static/favicon.ico" />
-                <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
-                <meta name="apple-mobile-web-app-title" content="Open WebUI" /> <!-- Consider changing this text -->
+		<!-- Asset Paths pointing to /static/* (served from static/static/) -->
+		<link rel="icon" type="image/png" href="/static/favicon.png" />
+		<link rel="icon" type="image/png" href="/static/favicon-96x96.png" sizes="96x96" />
+		<!-- <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" /> --> <!-- Uncomment only if you have favicon.svg in static/static/ -->
+		<link rel="shortcut icon" href="/static/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="Bejo AI Platform" /> <!-- Changed Text -->
 
-                <!-- Modified Manifest Path (using site.webmanifest from static/static/) -->
-                <link rel="manifest" href="/static/site.webmanifest" />
+		<link rel="manifest" href="/static/site.webmanifest" />
 
-                <meta
-                        name="viewport"
-                        content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=co>
-                />
-                <meta name="theme-color" content="#171717" />
-                <meta name="robots" content="noindex,nofollow" />
-                <!-- Consider changing this description -->
-                <meta name="description" content="Open WebUI" />
-                <link
-                        rel="search"
-                        type="application/opensearchdescription+xml"
-                        title="Open WebUI" <!-- Consider changing this title -->
-                        href="/opensearch.xml" <!-- Assuming this is still in /static/ and doesn't need /static/ prefix -->
-                />
-                <!-- Modified Loader Path -->
-                <script src="/static/loader.js" defer></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" /> <!-- Fixed closing bracket -->
+		<meta name="theme-color" content="#171717" />
+		<meta name="robots" content="noindex,nofollow" />
+		<meta name="description" content="Bejo AI Platform" /> <!-- Changed Text -->
 
-                <!-- Your custom CSS -->
-                <!-- <link rel="stylesheet" href="/custom-css/custom-styles.css"> -->
+		<!-- Assuming opensearch.xml is still in the original static/ folder, served from / -->
+		<link rel="search" type="application/opensearchdescription+xml" title="Bejo AI Platform" href="/opensearch.xml" /> <!-- Changed Text -->
 
-                <script>
-                        function resizeIframe(obj) {
-                                obj.style.height = obj.contentWindow.document.documentElement.scrollHe>
-                        }
-                </script>
+		<!-- Loader Path pointing to /static/loader.js (served from static/static/loader.js) -->
+		<script src="/static/loader.js" defer></script>
 
-                <script>
-                        // On page load or when changing themes, best to add inline in `head` to avoid>
-                        (() => {
-                                const metaThemeColorTag = document.querySelector('meta[name="theme-col>
-                                const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dar>
+		<!-- Your Custom CSS -->
+		<link rel="stylesheet" href="/custom-css/your-actual-css-filename.css" /> <!-- Ensure this line is NOT commented -->
 
-                                if (!localStorage?.theme) {
-                                        localStorage.theme = 'system';
-                                }
+		<script>
+			function resizeIframe(obj) {
+				obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px'; // Added 'px'
+			}
+		</script>
 
-                                if (localStorage.theme === 'system') {
-                                        document.documentElement.classList.add(prefersDarkTheme ? 'dar>
-                                        metaThemeColorTag.setAttribute('content', prefersDarkTheme ? '>
-                                } else if (localStorage.theme === 'oled-dark') {
-                                        document.documentElement.style.setProperty('--color-gray-800',>
-                                        document.documentElement.style.setProperty('--color-gray-850',>
-                                        document.documentElement.style.setProperty('--color-gray-900',>
-                                        document.documentElement.style.setProperty('--color-gray-950',>
-                                        document.documentElement.classList.add('dark');
-                                        metaThemeColorTag.setAttribute('content', '#000000');
-                                } else if (localStorage.theme === 'light') {
-                                        document.documentElement.classList.add('light');
-                                        metaThemeColorTag.setAttribute('content', '#ffffff');
-                                } else if (localStorage.theme === 'her') {
-                                        document.documentElement.classList.add('dark');
-                                        document.documentElement.classList.add('her');
-                                        metaThemeColorTag.setAttribute('content', '#983724');
-                                } else {
-                                        document.documentElement.classList.add('dark');
-                                        metaThemeColorTag.setAttribute('content', '#171717');
+		<script>
+			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+			(() => {
+				const metaThemeColorTag = document.querySelector('meta[name="theme-color"]');
+				const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches; // Use .matches
 
-                               }
+				if (!localStorage?.theme) {
+					localStorage.theme = 'system';
+				}
 
-                                window.matchMedia('(prefers-color-scheme: dark)').addListener((e) => {
-                                        if (localStorage.theme === 'system') {
-                                                if (e.matches) {
-                                                        document.documentElement.classList.add('dark');
-                                                        document.documentElement.classList.remove('lig>
-                                                        metaThemeColorTag.setAttribute('content', '#17>
-                                                } else {
-                                                        document.documentElement.classList.add('light'>
-                                                        document.documentElement.classList.remove('dar>
-                                                        metaThemeColorTag.setAttribute('content', '#ff>
-                                                }
-                                        }
-                                });
+				if (localStorage.theme === 'system') {
+					document.documentElement.classList.toggle('dark', prefersDarkTheme); // Use toggle
+					metaThemeColorTag.setAttribute('content', prefersDarkTheme ? '#171717' : '#ffffff');
+				} else if (localStorage.theme === 'oled-dark') {
+					document.documentElement.style.setProperty('--color-gray-800', '#000000');
+					document.documentElement.style.setProperty('--color-gray-850', '#000000');
+					document.documentElement.style.setProperty('--color-gray-900', '#000000');
+					document.documentElement.style.setProperty('--color-gray-950', '#000000');
+					document.documentElement.classList.add('dark');
+					metaThemeColorTag.setAttribute('content', '#000000');
+				} else if (localStorage.theme === 'light') {
+					document.documentElement.classList.remove('dark'); // Ensure dark is removed
+					document.documentElement.classList.add('light');
+					metaThemeColorTag.setAttribute('content', '#ffffff');
+				} else if (localStorage.theme === 'her') {
+					document.documentElement.classList.add('dark');
+					document.documentElement.classList.add('her');
+					metaThemeColorTag.setAttribute('content', '#983724');
+				} else {
+					// Default to dark if theme is unrecognized but not system/light
+					document.documentElement.classList.add('dark');
+					metaThemeColorTag.setAttribute('content', '#171717');
+				}
 
-                                function setSplashImage() {
-                                        const logo = document.getElementById('logo');
-                                        const isDarkMode = document.documentElement.classList.contains>
+				window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => { // Use addEventListener
+					if (localStorage.theme === 'system') {
+						if (e.matches) {
+							document.documentElement.classList.add('dark');
+							document.documentElement.classList.remove('light');
+							metaThemeColorTag.setAttribute('content', '#171717');
+						} else {
+							document.documentElement.classList.add('light');
+							document.documentElement.classList.remove('dark');
+							metaThemeColorTag.setAttribute('content', '#ffffff');
+						}
+					}
+				});
 
-                                        // *** MODIFIED SPLASH DARK PATH ***
-                                        const darkSplashPath = '/static/splash-dark.png';
-                                        const lightSplashPath = '/static/splash.png'; // Added for clarity
+				function setSplashImage() {
+					const logo = document.getElementById('logo');
+					if (!logo) return; // Add null check
+					const isDarkMode = document.documentElement.classList.contains('dark');
 
-                                        if (isDarkMode) {
-                                                const darkImage = new Image();
-                                                darkImage.src = darkSplashPath;
+					const darkSplashPath = '/static/splash-dark.png';
+					const lightSplashPath = '/static/splash.png';
 
-                                                darkImage.onload = () => {
-                                                        logo.src = darkSplashPath;
-                                                        logo.style.filter = ''; // Ensure no inversion>
-                                                };
+					if (isDarkMode) {
+						const darkImage = new Image();
+						darkImage.src = darkSplashPath;
 
-                                                darkImage.onerror = () => {
-                                                        // Fallback if dark splash fails - might use lig>
-                                                        logo.src = lightSplashPath;
-                                                        logo.style.filter = 'invert(1)'; // Invert ima>
-                                                };
-                                        } else {
-                                            // Explicitly set light mode splash
-                                            logo.src = lightSplashPath;
-                                            logo.style.filter = '';
-                                        }
-                                }
+						darkImage.onload = () => {
+							logo.src = darkSplashPath;
+							logo.style.filter = '';
+						};
 
-                                // Runs after classes are assigned
-                                // Use DOMContentLoaded for reliability
-                                document.addEventListener('DOMContentLoaded', setSplashImage);
-                        })();
-                </script>
+						darkImage.onerror = () => {
+							logo.src = lightSplashPath; // Fallback
+							logo.style.filter = 'invert(1)';
+						};
+					} else {
+						logo.src = lightSplashPath;
+						logo.style.filter = '';
+					}
+				}
+				// Use DOMContentLoaded for better reliability
+				document.addEventListener('DOMContentLoaded', setSplashImage);
+			})();
+		</script>
 
-                <!-- Consider changing this title -->
-                <title>Applied Intelligence built by Bejo</title>
+		<title>Bejo AI Platform</title> <!-- Changed Text -->
 
-                %sveltekit.head%
-        </head>
+		%sveltekit.head%
+	</head>
 
-        <body data-sveltekit-preload-data="hover">
-                <div style="display: contents">%sveltekit.body%</div>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
 
-                <div
-                        id="splash-screen"
-                        style="position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 10>
-                >
-                        <style type="text/css" nonce="">
-                                html {
-                                        overflow-y: scroll !important;
-                                }
-                        </style>
+		<div id="splash-screen" style="position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 0.2s ease-out 0s;">
+			<style type="text/css" nonce="">html { overflow-y: scroll !important; }</style>
 
-                       <!-- *** MODIFIED SPLASH LIGHT PATH *** -->
-                       <img
-                                id="logo"
-                                style="
-                                        position: absolute;
-                                        width: auto;
-                                        height: 6rem;
-                                        top: 44%;
-                                        left: 50%;
-                                        transform: translateX(-50%);
-                                "
-                                src="/static/splash.png"
-                        />
+			<img id="logo" style="position: absolute; width: auto; height: 6rem; top: 44%; left: 50%; transform: translateX(-50%);" src="/static/splash.png" />
 
-                        <div
-                                style="
-                                        position: absolute;
-                                        top: 33%;
-                                        left: 50%;
+			<div style="position: absolute; top: 33%; left: 50%; width: 24rem; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center;">
+				<!-- Ensure the 'her' theme splash logic matches setSplashImage if used -->
+				<img id="logo-her" style="width: auto; height: 13rem" src="/static/splash.png" class="animate-pulse-fast" />
 
-                                        width: 24rem;
-                                        transform: translateX(-50%);
+				<div style="position: relative; width: 24rem; margin-top: 0.5rem">
+					<div id="progress-background" style="position: absolute; width: 100%; height: 0.75rem; border-radius: 9999px; background-color: #fafafa9a;"></div>
+					<div id="progress-bar" style="position: absolute; width: 0%; height: 0.75rem; border-radius: 9999px; background-color: #fff;" class="bg-white"></div>
+				</div>
+			</div>
+		</div>
 
-                                        display: flex;
-                                        flex-direction: column;
-                                        align-items: center;
-                                "
-                        >
-                                <!-- *** MODIFIED SPLASH HER PATH *** -->
-                                <img
-                                        id="logo-her"
-                                        style="width: auto; height: 13rem"
-                                        src="/static/splash.png"
-                                        class="animate-pulse-fast"
-                                />
+		<!-- Your Custom JS -->
+		<script src="/custom-js/your-actual-js-filename-1.js" defer></script> <!-- Ensure this line is NOT commented -->
+		<script src="/custom-js/your-actual-js-filename-2.js" defer></script> <!-- Ensure this line is NOT commented -->
 
-                                <div style="position: relative; width: 24rem; margin-top: 0.5rem">
-                                        <div
-                                                id="progress-background"
-                                                style="
-                                                        position: absolute;
-                                                        width: 100%;
-                                                        height: 0.75rem;
-
-                                                        border-radius: 9999px;
-                                                        background-color: #fafafa9a;
-                                                "
-                                        ></div>
-
-                                       <div
-                                                id="progress-bar"
-                                                style="
-                                                        position: absolute;
-                                                        width: 0%;
-                                                        height: 0.75rem;
-                                                        border-radius: 9999px;
-                                                        background-color: #fff;
-                                                "
-                                                class="bg-white"
-                                        ></div>
-                                </div>
-                        </div>
-
-                        <!-- <span style="position: absolute; bottom: 32px; left: 50%; margin: -36px 0>
-                                Footer content
-                        </span> -->
-                </div>
-
-                <!-- Your custom JS 
-                <script src="/custom-js/custom-branding.js" defer></script>
-                <script src="/custom-js/custom-element-styling.js" defer></script> -->
-        </body>
+	</body>
 </html>
 
+<!-- Styles moved outside body for validity -->
 <style type="text/css" nonce="">
-        html {
-                overflow-y: hidden !important;
-        }
-
-        #splash-screen {
-                background: #fff;
-        }
-
-        html.dark #splash-screen {
-                background: #000;
-        }
-
-        html.her #splash-screen {
-                background: #983724;
-        }
-
-        #logo-her {
-                display: none;
-        }
-
-        #progress-background {
-                display: none;
-        }
-
-        #progress-bar {
-                display: none;
-        }
-
-        html.her #logo {
-                display: none;
-        }
-
-        html.her #logo-her {
-                display: block;
-                filter: invert(1);
-        }
-
-       html.her #progress-background {
-                display: block;
-        }
-
-        html.her #progress-bar {
-                display: block;
-        }
-
-        @media (max-width: 24rem) {
-                html.her #progress-background {
-                        display: none;
-                }
-
-                html.her #progress-bar {
-                        display: none;
-                }
-        }
-
-        @keyframes pulse {
-                50% {
-                        opacity: 0.65;
-                }
-        }
-
-        .animate-pulse-fast {
-                animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
+	html { overflow-y: hidden !important; }
+	#splash-screen { background: #fff; }
+	html.dark #splash-screen { background: #000; }
+	html.her #splash-screen { background: #983724; }
+	#logo-her { display: none; }
+	#progress-background { display: none; }
+	#progress-bar { display: none; }
+	html.her #logo { display: none; }
+	html.her #logo-her { display: block; filter: invert(1); }
+	html.her #progress-background { display: block; }
+	html.her #progress-bar { display: block; }
+	@media (max-width: 24rem) {
+		html.her #progress-background { display: none; }
+		html.her #progress-bar { display: none; }
+	}
+	@keyframes pulse { 50% { opacity: 0.65; } }
+	.animate-pulse-fast { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
 </style>
