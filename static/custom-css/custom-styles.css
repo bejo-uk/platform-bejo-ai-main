@@ -12,16 +12,7 @@ div.fixed.m-10.z-50 {
 }
 
 /* Override border-radius for the specific logo */
-.rounded-full {
+img#logo.w-6.rounded-full {
     border-radius: 0 !important;
 }
 
-/* Example using an ID */
-#sidebar-logo.rounded-full {
-    border-radius: 0 !important;
-}
-
-/* Example using src attribute */
-img[src="/static/your-logo.png"].rounded-full {
-     border-radius: 0 !important;
-}
