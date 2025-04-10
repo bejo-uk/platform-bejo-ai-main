@@ -9,14 +9,14 @@
 		<!-- <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" /> --> <!-- Uncomment only if you have favicon.svg in static/static/ -->
 		<link rel="shortcut icon" href="/static/favicon.ico" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
-		<meta name="apple-mobile-web-app-title" content="Bejo AI Platform" /> <!-- Changed Text -->
+		<meta name="apple-mobile-web-app-title" content="Applied Intelligence built by Bejo" /> <!-- Changed Text -->
 
 		<link rel="manifest" href="/static/site.webmanifest" />
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" /> <!-- Fixed closing bracket -->
 		<meta name="theme-color" content="#171717" />
 		<meta name="robots" content="noindex,nofollow" />
-		<meta name="description" content="Bejo AI Platform" /> <!-- Changed Text -->
+		<meta name="description" content="Applied Intelligence built by Bejo" /> <!-- Changed Text -->
 
 		<!-- Assuming opensearch.xml is still in the original static/ folder, served from / -->
 		<link rel="search" type="application/opensearchdescription+xml" title="Bejo AI Platform" href="/opensearch.xml" /> <!-- Changed Text -->
@@ -25,7 +25,7 @@
 		<script src="/static/loader.js" defer></script>
 
 		<!-- Your Custom CSS -->
-		<link rel="stylesheet" href="/custom-css/your-actual-css-filename.css" /> <!-- Ensure this line is NOT commented -->
+		<link rel="stylesheet" href="/custom-css/custom-styles.css" /> <!-- Ensure this line is NOT commented -->
 
 		<script>
 			function resizeIframe(obj) {
@@ -112,7 +112,11 @@
 			})();
 		</script>
 
-		<title>Bejo AI Platform</title> <!-- Changed Text -->
+                <!-- Ensure these are active -->
+                <script src="/custom-js/custom-branding.js" defer></script>
+                <script src="/custom-js/custom-element-styling.js" defer></script>
+
+		<title>Applied Intelligence built by Bejo</title> <!-- Changed Text -->
 
 		%sveltekit.head%
 	</head>
@@ -136,9 +140,6 @@
 			</div>
 		</div>
 
-		<!-- Your Custom JS -->
-		<script src="/custom-js/your-actual-js-filename-1.js" defer></script> <!-- Ensure this line is NOT commented -->
-		<script src="/custom-js/your-actual-js-filename-2.js" defer></script> <!-- Ensure this line is NOT commented -->
 
 	</body>
 </html>
