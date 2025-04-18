@@ -25,6 +25,14 @@ services:
     environment:
       - 'OLLAMA_BASE_URL=http://ollama:11434'
       - 'WEBUI_SECRET_KEY='
+      # Configure the filter's valves (can also be done via UI if filter valves are loaded)
+      - 'FILTER_CODEBASE_CONTEXT_INJECTOR_ENABLE_CODEBASE_CONTEXT=true' # Enable the filter
+      - 'FILTER_CODEBASE_CONTEXT_INJECTOR_HOST_API_URL=http://host.docker.internal:9999'
+      - 'FILTER_CODEBASE_CONTEXT_INJECTOR_HOST_API_KEY=e8a3f6b9d1c0a7e5b4f9d2e1c8a0b7d6f3c2a1b8d0e9f7c4a6b3d5e2f1a0c8b7' # Use the correct secret key
+      # Optional:
+      # - 'FILTER_CODEBASE_CONTEXT_INJECTOR_HOST_API_TIMEOUT=30'
+      # - 'FILTER_CODEBASE_CONTEXT_INJECTOR_MAX_CONTEXT_LENGTH=4000'
+
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped
